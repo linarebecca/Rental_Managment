@@ -28,13 +28,30 @@
 						<th>N</th>
 						<th>Creator</th>
                         <th>Title</th>
-						<th>Views</th>
+						<th>Featured Image</th>
 						<!-- Only landlord can publish/unpublish houses -->
-						<?php if ($_SESSION['user']['role'] == "landlord"): ?>
+						
+						<?php 
+						if (isset($_SESSION['user'])) {
+							$user_role = $_SESSION['user']['id'];
+							$query = "SELECT * FROM users WHERE id = $user_role ";
+							$select_user_role = mysqli_query($conn,$query);
+							while($row = mysqli_fetch_assoc($select_user_role)) {
+							$user_type = $row['role'];
+							// $cat_title = $row['name'];
+							// $_SESSION['cat_id'] = $cat_id;
+							}
+						}
+						if ($user_type == "landlord") {
+						 ?>
 							<th><small>Publish</small></th>
-						<?php endif ?>
+						<th><small>Add Rooms</small></th>
 						<th><small>Edit</small></th>
 						<th><small>Delete</small></th>
+						<?php } else { ?>
+						<th><small>Add Rooms</small></th>
+						<th><small>Edit</small></th>
+						<?php } ?>
 					</thead>
 					<tbody>
 					<?php foreach ($houses as $key => $house): ?>
@@ -47,33 +64,70 @@
 									<?php echo $house['title']; ?>	
 								</a>
 							</td>
-							<td><?php echo $house['views']; ?></td>
+							<td><img width='100' src='../static/images/<?php echo $house['image']; ?>' alt='image' ></td>
 							
 							<!-- Only landlord can publish/unpublish houses -->
-							<?php if ($_SESSION['user']['role'] == "landlord" ): ?>
+							<?php
+							if (isset($_SESSION['user'])) {
+								$user_role = $_SESSION['user']['id'];
+								$query = "SELECT * FROM users WHERE id = $user_role ";
+								$select_user_role = mysqli_query($conn,$query);
+								while($row = mysqli_fetch_assoc($select_user_role)) {
+								$user_type = $row['role'];
+								// $cat_title = $row['name'];
+								// $_SESSION['cat_id'] = $cat_id;
+								}
+							}
+							
+							if ($user_type == "landlord" ): ?>
 								<td>
 								<?php if ($house['published'] == true): ?>
-									<a class="fa fa-check btn unpublish"
+									<a class="btn unpublish"
 										href="houses.php?unpublish=<?php echo $house['id'] ?>">
+										Vacant
 									</a>
 								<?php else: ?>
-									<a class="fa fa-times btn publish"
+									<a class="btn publish"
 										href="houses.php?publish=<?php echo $house['id'] ?>">
+										Occupied
 									</a>
 								<?php endif ?>
 								</td>
 							<?php endif ?>
+							<td>
+								<a class="btn edit"
+									href="add_house_rooms.php?rooms=<?php echo $house['slug'] ?>">
+									Add Rooms
+								</a>
+							</td>
 
 							<td>
-								<a class="fa fa-pencil btn edit"
+								<a class="btn edit"
 									href="create_house.php?edit-house=<?php echo $house['id'] ?>">
+									edit
 								</a>
 							</td>
+							<?php
+							if (isset($_SESSION['user'])) {
+								$user_role = $_SESSION['user']['id'];
+								$query = "SELECT * FROM users WHERE id = $user_role ";
+								$select_user_role = mysqli_query($conn,$query);
+								while($row = mysqli_fetch_assoc($select_user_role)) {
+								$user_type = $row['role'];
+								// $cat_title = $row['name'];
+								// $_SESSION['cat_id'] = $cat_id;
+								}
+							}
+							
+							if ($user_type == "landlord" ): ?>
+
 							<td>
-								<a  class="fa fa-trash btn delete" 
+								<a  class="btn delete" 
 									href="create_house.php?delete-house=<?php echo $house['id'] ?>">
+									delete
 								</a>
 							</td>
+							<?php endif ?>
 						</tr>
 					<?php endforeach ?>
 					</tbody>

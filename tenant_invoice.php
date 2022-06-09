@@ -4,8 +4,8 @@
 	if (isset($_GET['user_id'])) {
 		$tenant = getTenant($_GET['user_id']);
 	}
-    if (isset($_GET['house_id'])) {
-		$house = getHouse_ID($_GET['house_id']);
+    if (isset($_GET['house_slug'])) {
+		$house = getHouse_Slug($_GET['house_slug']);
 	}
 ?>
 <?php include('includes/head_section.php'); ?>
@@ -19,10 +19,12 @@
 	
 	<div class="content" >
 		<!-- Page wrapper -->
-		<div class="post-wrapper">
+		<div class="house-post-wrapper" style="width: 100%;">
 			<!-- full post div -->
-			<div class="full-post-div">
-                <table>
+			<h1 style="text-align: center;">YOUR HOUSING DEPOSIT</h1>
+			<button class="btn" style="margin-bottom: 30px; float: right;" onClick="window.print()">PRINT</button>
+			<div class="full-house-post-div">
+			<table class="table-dashboard table-striped" width="100%" id="mytable" border="2" style="background-color: grey; color: #000; margin: 0 auto;">
                     <thead>
                         <th>username</th>
                         <th>House</th>
@@ -30,14 +32,18 @@
                         <th>Date of Pay</th>
                         <th>Mode of Payment</th>
                         <th>Payment Code</th>
+						<th colspan="2">Actions</th>
                     </thead>
                     <tbody>
                         <td><?php echo $tenant['username']; ?></td>
-                        <td><?php echo $house['title'] ?> </td>
+                        <td><?php echo strtoupper($tenant['house_slug']) ?> </td>
                         <td><?php echo $tenant['deposit_amount']; ?></td>
                         <td><?php echo $tenant['created_at']; ?></td>
                         <td><?php echo $tenant['mode_of_pay']; ?></td>
-                        <td><?php echo $tenant['pay_code']; ?></td>                  
+                        <td><?php echo $tenant['pay_code']; ?></td> 
+						<td><a href="monthly_payments_invoice.php?user_id=<?php echo $tenant['user_id']?>&house_slug=<?php echo $tenant['house_slug']; ?>">monthly_invoice</a></td> 
+						<td><a href="rent_payment.php?user_id=<?php echo $tenant['user_id']?>&house_slug=<?php echo $tenant['house_slug']; ?>">Renew Payment</a></td>  
+						               
                     </tbody>
                 </table>
 			</div>
@@ -45,27 +51,6 @@
 			<hr>
 		</div>
 		<!-- // Page wrapper -->
-
-		<!-- post sidebar -->
-		<div class="post-sidebar">
-			<div class="card">
-				<div class="card-header">
-					<h2>ACTIONS</h2>
-				</div>
-				<div class="card-content">
-						<a 
-							href="tenant_invoic?user_id=<?php $tenant['user_id']; ?> .'&'. 'house=<?php $house['house_id']; ?>">DEPOSIT INVOICE
-						</a> 
-                        <a 
-							href="<?php echo BASE_URL . 'monthly_invoice.php?monthly=' . isset($_GET['user_id']).'&'.'house='.isset($_GET['house_id']); ?>">MONTHLY INVOICE
-						</a> 
-						<a 
-							href="<?php echo BASE_URL . 'rent_payment.php?monthly=' . isset($_GET['user_id']).'&'.'house='.isset($_GET['house_id']); ?>">RENT PAYMENT
-						</a> 				
-				</div>
-			</div>
-		</div>
-		<!-- // post sidebar -->
 	</div>
 </div>
 <!-- // content -->

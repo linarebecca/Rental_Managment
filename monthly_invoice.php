@@ -1,1 +1,0 @@
-<?php echo "hello i am monthly pays"; ?>

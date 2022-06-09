@@ -1,11 +1,15 @@
-/* * * * * * * * * *
-* STYLING DEFAULTS
-* * * * * * * * * */
-* { margin: 0px; padding: 0px; }
+/* styling defaults */
+* { margin: 0px; 
+	padding: 0px; 
+  } 
+/* remove link decorations */
 a { text-decoration: none; }
-h1, h2, h3, h4, h5, h6 { font-family: 'Noto Serif', serif; }
+
 /* forms */
-form { width: 60%; margin: 5px auto; padding-bottom: 50px; }
+form { width: 60%;
+	 margin: 5px auto;
+	 padding-bottom: 50px;
+	 }
 form input[type=file], input[type=email], input[type=password], input[type=text], 
 form select, form textarea {
 	width: 100%;
@@ -29,7 +33,7 @@ th { text-align: center;}
 /* buttons */
 .btn {
 	color: white;
-	background: #4E6166;
+	background: #001131;
 	text-align: center;
 	border: none;
 	border-radius: 5px;
@@ -38,32 +42,34 @@ th { text-align: center;}
 	padding: 13px 20px;
 	text-decoration: none;
 }
-/* * * * * * * * * *
-* HEADER
-* * * * * * * * * */
+/* HEADER */
 .header {
 	padding: 15px 45px;
 	font-family: 'Noto Serif', serif;
 	color: white;
-	background: black;
+	/* background: #001131; */
+	background: #001131;
 }
 .header .logo { width: 50%; float: left; }
 .header .logo h1 { color: white; }
 .header .user-info { width: 10%; margin-top: 10px; float: right;}
 .header .logout-btn { color: red; text-decoration: none; }
 .header:after{ content: ""; display: block; clear: both; }
-/* * * * * * * * * *
-* DASHBOARD
-* * * * * * * * * */
+/* dashboard styling */
 .container {
-	width: 95%;
-	margin: 5px auto 50px;
-	border: 1px solid #BFBCB3;
-	padding: 10px 0px 50px;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	
 }
-.container:after { content: ""; display: block; clear: both; }
+/* 
+.dashboard {
+	background-size: cover;
+	background: linear-gradient(to top, rgba(0,0,0,0.5)50%,rgba(0,0,0,0.5)50%), url(../images/banner.jpg);
+}
+/* .container:after { content: ""; display: block; clear: both; } */
 .container.dashboard h1 { text-align: center; margin: 25px; }
-.container.dashboard .stats a {
+/* .container.dashboard .stats a {
 	display: inline-block;
 	padding: 30px;
 	margin: 5px;
@@ -73,8 +79,8 @@ th { text-align: center;}
 	border: 1px solid #BFBCB3;
 }
 .container.dashboard .stats a.first { margin-left: 25px; }
-.container.dashboard .stats a:hover { cursor: pointer; background-color: #E1E1E1; }
-.container.dashboard .buttons { margin-left: 15px; }
+.container.dashboard .stats a:hover { cursor: pointer; background-color: #E1E1E1; } */
+.container.dashboard .buttons { margin-left: 15px; } */
 .container.dashboard .buttons a {
 	display: inline-block;
 	margin: 10px;
@@ -85,26 +91,30 @@ th { text-align: center;}
 	background-color: #0E7D92;
 	color: white;
 }
-/* * * * * * * * * *
-* PAGE CONTENT
-* * * * * * * * * */
-.container.content .menu { width: 16%; float: left; padding: 40px 10px; }
-/* Menu card */
-.container.content .menu .card .card-header {
+/* page content */
+.container.content .sidebar-menu { 
+	width: 16%; 
+	float: left; 
+	padding: 0px; 
+	line-height: 32px;
+}
+/* sidebar-menu sidebar-card */
+.container.content .sidebar-menu .sidebar-card .sidebar-card-header {
 	padding: 10px;
 	text-align: center;
-	border-radius: 3px 3px 0px 0px;
-	background: #3E606F;
+	background:  #003366;
+	/* #a94442 */
 }
-.container.content .menu .card .card-header h2 { color: white; }
-.container.content .menu .card .card-content a {
+.container.content .sidebar-menu .sidebar-card .sidebar-card-header h2 { color: white; }
+.container.content .sidebar-menu .sidebar-card .sidebar-card-content a {
 	display: block;
 	box-sizing: border-box;
 	padding: 8px 10px;
-	border-bottom: 1px solid #e4e1e1;
-	color: #444;
+	border: 1px solid #000000;
+	background:#003366;
+	color: rgb(0, 0, 0);
 }
-.container.content .menu .card .card-content a:hover {
+.container.content .sidebar-menu .sidebar-card .sidebar-card-content a:hover {
 	padding-left: 20px; background: #F9F9F9; transition: 0.1s;
 }
 
@@ -118,13 +128,11 @@ th { text-align: center;}
 .table-div .message { width: 90%; margin-top: 20px; }
 .table-div table { width: 90%; }
 .table-div a.fa { color: white; padding: 3px; }
-.table-div .edit { background: #004220; }
+.table-div .edit { background: #01644c; }
 .table-div .delete { background: #F70E1A; }
-.table-div .publish { background: red; }
-.table-div .unpublish { background: green; }
-/* * * * * * * * * *
-* VALIDATION ERRORS
-* * * * * * * * * */
+.table-div .publish { background: black; }
+.table-div .unpublish { background: #001131; }
+/* VALIDATION ERRORS */ 
 .message {
 	width: 100%; 
 	margin: 0px auto; 

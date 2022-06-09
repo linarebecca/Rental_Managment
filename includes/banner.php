@@ -1,3 +1,4 @@
+<!-- i want to check if user is in session -->
 <?php if (isset($_SESSION['user']['username'])) { ?>
 	<div class="logged_in_info">
 		<span>welcome <?php echo $_SESSION['user']['username'] ?></span>
@@ -9,12 +10,9 @@
 		<div class="welcome_msg">
 			<h1>RENT A HOME TODAY</h1>
 			<p> 
-			    A HAPPY HOME <br> 
-			   BETTER SECURITY. <br> 
-			    LOVELY VIEW <br>
-				<span>~ RMS</span>
+			    A Happy Family Needs A Better Home <br> 
 			</p>
-			<a href="register.php" class="btn">Join us!</a>
+			<a href="register.php" class="btn">REGISTER</a>
 		</div>
 
 		<div class="login_div">
@@ -25,6 +23,14 @@
 				</div>
 				<input type="text" name="username" value="<?php echo $username; ?>" placeholder="Username">
 				<input type="password" name="password"  placeholder="Password"> 
+				<div class="drop-select" >
+				<select name="user_type" id="selectValidate">
+                            <option>...Select User...</option>
+                            <option value="tenant">tenant</option>
+                            <option value="landlord">admin</option>
+                            <option value="manager">manager</option>
+                </select>
+				</div>
 				<button class="btn" type="submit" name="login_btn">Sign in</button>
 			</form>
 		</div>

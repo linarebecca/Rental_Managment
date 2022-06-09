@@ -1,43 +1,105 @@
 <?php  include('../config.php'); ?>
-	<?php include(ROOT_PATH . '/landlord/includes/landlord_functions.php'); ?>
-	<?php include(ROOT_PATH . '/landlord/includes/head_section.php'); ?>
-	<title>landlord | Dashboard</title>
+<?php  include(ROOT_PATH . '/admin/includes/landlord_functions.php'); ?>
+<?php include(ROOT_PATH . '/admin/includes/head_section.php'); ?>
+	<title>landlord | dashboard</title>
 </head>
 <body>
-	<div class="header">
-		<div class="logo">
-			<a href="<?php echo BASE_URL .'landlord/dashboard.php' ?>">
-				<h1>RMS - landlord</h1>
-			</a>
+	<!-- landlord navbar -->
+	<?php include(ROOT_PATH . '/admin/includes/navbar.php') ?>
+	<div class="container content dashboard">
+		<!-- Left side menu -->
+		<?php include(ROOT_PATH . '/admin/includes/menu.php') ?>
+		<div class="action create-post-div">
+			<h1 class="page-title">REPORTS</h1>
+			<table class="table" style="width: 100%; margin-left: 30px; background-color:aliceblue;">
+						<thead>
+						<th>TENANTS</th>
+						<th>HOUSES</th>
+                        <th>VACANT HOUSES</th>
+						<th>OCCUPIED HOUSES</th>
+                        <th>SUBSCRIBED TENANTS</th>
+						</thead>
+					<tbody>
+                        <!-- tenants -->
+						<td>
+						<?php
+		$db = mysqli_connect('localhost','root','','onlinerentalsdb');
+            $query = "SELECT * FROM house_deposit_tenant";
+             $select_all_prisoners = mysqli_query($db,$query);
+             if ($result=$select_all_prisoners) {
+                 $rowcount=mysqli_num_rows($result);
+                //  echo "The total number of rows are: ".$rowcount; 
+            ?>
+            <h1>TOTAL:<?php echo $rowcount; ?> </h1>
+            <?php  } ?>
+            <a href="tenants_report.php">view</a>
+       </td>
+       <!-- houses -->
+						<td>
+						<?php
+		$db = mysqli_connect('localhost','root','','onlinerentalsdb');
+            $query = "SELECT * FROM houses";
+             $select_all_prisoners = mysqli_query($db,$query);
+             if ($result=$select_all_prisoners) {
+                 $rowcount=mysqli_num_rows($result);
+                //  echo "The total number of rows are: ".$rowcount; 
+            ?>
+            <h1>TOTAL:<?php echo $rowcount; ?> </h1>
+            <?php  } ?>
+            <a href="house_report.php">view</a>
+						</td>
+                        <!-- vacants -->
+						<td>
+						<?php
+		$db = mysqli_connect('localhost','root','','onlinerentalsdb');
+            $query = "SELECT * FROM houses WHERE published = 1";
+             $select_all_prisoners = mysqli_query($db,$query);
+             if ($result=$select_all_prisoners) {
+                 $rowcount=mysqli_num_rows($result);
+                //  echo "The total number of rows are: ".$rowcount; 
+            ?>
+            <h1>TOTAL:<?php echo $rowcount; ?> </h1>
+            <?php  } ?>
+            <a href="vacant_report.php">view</a>
+						</td>
+                        <td>
+						<?php
+		$db = mysqli_connect('localhost','root','','onlinerentalsdb');
+            $query = "SELECT * FROM houses WHERE published= 0";
+             $select_all_prisoners = mysqli_query($db,$query);
+             if ($result=$select_all_prisoners) {
+                 $rowcount=mysqli_num_rows($result);
+                //  echo "The total number of rows are: ".$rowcount; 
+            ?>
+            <h1>TOTAL:<?php echo $rowcount; ?> </h1>
+            <?php  } ?>
+            <a href="occupied_house_report.php">view</a>
+						</td>
+						<td>
+						<?php
+		$db = mysqli_connect('localhost','root','','onlinerentalsdb');
+            $query = "SELECT * FROM users WHERE role='tenant'";
+             $select_all_prisoners = mysqli_query($db,$query);
+             if ($result=$select_all_prisoners) {
+                 $rowcount=mysqli_num_rows($result);
+                //  echo "The total number of rows are: ".$rowcount; 
+            ?>
+            <h1>TOTAL:<?php echo $rowcount; ?> </h1>
+            <?php  } ?>
+            <a href="subscribers_report.php">view</a>
+						</td>
+					</tbody>
+				</table>
 		</div>
-		<?php if (isset($_SESSION['user'])): ?>
-			<div class="user-info">
-				<span><?php echo $_SESSION['user']['username'] ?></span> &nbsp; &nbsp; 
-				<a href="<?php echo BASE_URL . '/logout.php'; ?>" class="logout-btn">logout</a>
-			</div>
-		<?php endif ?>
+		<!-- // Middle form - to create and edit -->
 	</div>
-	<div class="container dashboard">
-		<h1>RMS REPORTS</h1>
-		<div class="stats">
-			<a href="users.php" class="first">
-				<span>43</span> <br>
-				<span>Newly registered tenants</span>
-			</a>
-			<a href="houses.php">
-				<span>43</span> <br>
-				<span>Published houses</span>
-			</a>
-			<a>
-				<span>43</span> <br>
-				<span>payment</span>
-			</a>
-		</div>
-		<br><br><br>
-		<div class="buttons">
-			<a href="dashboard.php">menu</a>
-			<!-- <a href="houses.php">Add house</a> -->
-		</div>
+</body>
+</html>
+
+<script>
+	// CKEDITOR.replace('body');
+</script>
+		
 	</div>
 </body>
 </html>

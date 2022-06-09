@@ -2,7 +2,7 @@
 <?php include('includes/public_functions.php'); ?>
 <?php include('includes/head_section.php'); ?>
 <?php 
-	// Get posts under a particular topic
+	// Get house-posts under a particular topic
 	if (isset($_GET['floor'])) {
 		$floor_id = $_GET['floor'];
 		$houses = getPublishedHousesByFloor($floor_id);
@@ -22,10 +22,10 @@
 	</h2>
 	<hr>
 	<?php foreach ($houses as $house): ?>
-		<div class="post" style="margin-left: 0px;">
-			<img src="<?php echo BASE_URL . '/static/images/' . $house['image']; ?>" class="post_image" alt="">
+		<div class="house-post" style="margin-left: 0px;">
+			<img src="<?php echo BASE_URL . '/static/images/' . $house['image']; ?>" class="house-post_image" alt="">
 			<a href="single_house.php?house-slug=<?php echo $house['slug']; ?>">
-				<div class="post_info">
+				<div class="house-post_info">
 					<h3><?php echo $house['title'] ?></h3>
 					<div class="info">
 						<span><?php echo date("F j, Y ", strtotime($house["created_at"])); ?></span>

@@ -24,8 +24,26 @@
 
 			<?php if (empty($tenants)): ?>
 				<h1>No tenants found in the database.</h1>
+				<br>
+					<a class="btn edit" style="width: 30%; float: left; margin-left: 20px;"
+					href="add_tenant_user.php">
+					ADD USER FOR BOOKINGS
+					</a>
+			    	<a class="btn edit" style="width: 30%; float: right; margin-bottom: 30px;"
+					href="tenant_deposit_bookings.php">
+					DEPOSIT HOUSE BOOKINGS
+					</a>
 			<?php else: ?>
 				<table class="table">
+					<br>
+					<a class="btn edit" style="width: 30%; float: left; margin-left: 20px;"
+					href="add_tenant_user.php">
+					ADD USER FOR BOOKINGS
+					</a>
+			    	<a class="btn edit" style="width: 30%; float: right; margin-bottom: 30px;"
+					href="tenant_deposit_bookings.php">
+					DEPOSIT HOUSE BOOKINGS
+					</a>
 					<thead>
 						<th>N</th>
 						<th>tenant</th>
@@ -35,7 +53,7 @@
                         <th>mode of pay</th>
                         <th>pay code</th>
                         <th>date rented</th>
-						<th colspan="2">Action</th>
+						<th colspan="3">Action</th>
 					</thead>
 					<tbody>
 					<?php foreach ($tenants as $key => $tenant): ?>
@@ -50,8 +68,14 @@
                             <td><?php echo $tenant['created_at']; ?></td>
 							<td>
 								<a class="btn edit"
-									href="tenants.php?edit-tenant=<?php echo $tenant['id'] ?>">
+									href="update_tenant_deposit.php?edit-tenant=<?php echo $tenant['id'] ?>">
 									edit
+								</a>
+							</td>
+							<td>
+								<a class="btn edit"
+									href="update_tenant_deposit.php?edit-tenant=<?php echo $tenant['id'] ?>">
+									renew
 								</a>
 							</td>
 							<td>

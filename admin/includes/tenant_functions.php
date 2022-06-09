@@ -173,7 +173,33 @@ function deletelandlord($landlord_id) {
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 function getTenantUsers(){
 	global $conn;
-	$sql = "SELECT * FROM house_deposit_tenant JOIN users ON house_deposit_tenant.user_id=users.id JOIN houses ON house_deposit_tenant.house_id=houses.id";
+	$sql = "SELECT * FROM house_deposit_tenant JOIN users ON house_deposit_tenant.user_id=users.id JOIN houses ON house_deposit_tenant.house_slug=houses.slug";
+	$result = mysqli_query($conn, $sql);
+	$tenants = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+	return $tenants;
+}
+
+// get tenants filter report
+function getTenantUsersFilterReport(){
+	global $conn;
+	if (isset($_GET['tenant_report'])) {
+		$tenants_email = $_GET['tenant_report'];
+	}
+	$sql = "SELECT * FROM house_deposit_tenant JOIN users ON house_deposit_tenant.user_id=users.id JOIN houses ON house_deposit_tenant.house_slug=houses.slug WHERE users.email LIKE '%$tenants_email%'";
+	$result = mysqli_query($conn, $sql);
+	$tenants = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+	return $tenants;
+}
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+* - Returns all tenants users and their corresponding roles
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+function getTenantUsersPayments(){
+	global $conn;
+	$sql = "SELECT * FROM monthly_payments JOIN users ON monthly_payments.user_id=users.id JOIN houses ON monthly_payments.house_slug=houses.slug";
 	$result = mysqli_query($conn, $sql);
 	$tenants = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
@@ -276,6 +302,16 @@ function deleteFloor($floor_id) {
 		$_SESSION['message'] = "Floor successfully deleted";
 		header("location: floors.php");
 		exit(0);
+	}
+}
+
+function isAdmin()
+{
+	// if (isset($_SESSION['user']) && $_SESSION['user']['user_type'] == 'landlord' ) {
+	if ( in_array($_SESSION['user']['role'], ["landlord", "manager"])) {
+		return true;
+	}else{
+		return false;
 	}
 }
 ?>

@@ -173,12 +173,56 @@ function deletelandlord($landlord_id) {
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 function getlandlordUsers(){
 	global $conn, $roles;
-	$sql = "SELECT * FROM users WHERE role IS NOT NULL";
+	// select only tenants to be displayed to the manager
+	$sql = "SELECT * FROM users";
 	$result = mysqli_query($conn, $sql);
 	$users = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 	return $users;
 }
+
+// get subscribed users
+function getSubscribedUsers(){
+	global $conn, $roles;
+	// select only tenants to be displayed to the manager
+	$sql = "SELECT * FROM users WHERE role = 'tenant'";
+	$result = mysqli_query($conn, $sql);
+	$users = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+	return $users;
+}
+// subscriber filter report
+// get subscribed users
+function getSubscribedUsersReportFilter(){
+	global $conn, $roles;
+	if (isset($_GET['subcriber_report'])) {
+		$subscriber_email = $_GET['subcriber_report'];
+	}
+	// select only tenants to be displayed to the manager
+	$sql = "SELECT * FROM users WHERE role = 'tenant' AND email LIKE '%$subscriber_email%'";
+	$result = mysqli_query($conn, $sql);
+	$users = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+	return $users;
+}
+
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+* - Returns all tenants users and their corresponding roles
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+// function gettenantUsers(){
+// 	global $conn, $roles;
+// 	if (isset($roles['tenant'])) {
+// 		$tenants = $roles...
+// 	}
+// 	// select only tenants to be displayed to the manager
+// 	$sql = "SELECT * FROM users WHERE role$tenants)";
+// 	$result = mysqli_query($conn, $sql);
+// 	$users = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+// 	return $users;
+// }
 /* * * * * * * * * * * * * * * * * * * * *
 * - Escapes form submitted value, hence, preventing SQL injection
 * * * * * * * * * * * * * * * * * * * * * */
@@ -276,6 +320,16 @@ function deleteFloor($floor_id) {
 		$_SESSION['message'] = "Floor successfully deleted";
 		header("location: floors.php");
 		exit(0);
+	}
+}
+
+function isAdmin()
+{
+	// if (isset($_SESSION['user']) && $_SESSION['user']['user_type'] == 'landlord' ) {
+	if ( in_array($_SESSION['user']['role'], ["landlord", "manager"])) {
+		return true;
+	}else{
+		return false;
 	}
 }
 ?>
