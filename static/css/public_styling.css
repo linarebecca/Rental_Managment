@@ -105,14 +105,13 @@ form input:focus {
 /* FOOTER */
  .footer {
   position: absolute;
-  right: 0;
-  bottom: 0;
+  bottom: -100px;
   left: 0;
   color: white;
   background-color: #001131;
   text-align: center;
   width: 100%;
-  margin: 20px auto 0px;
+  /* margin: 100px auto 0px; */
   padding: 20px 0px;
   display: flex;
   flex-direction: row !important;
