@@ -103,7 +103,7 @@ form input:focus {
 }
 
 /* FOOTER */
-.footer {
+ .footer {
   position: absolute;
   right: 0;
   bottom: 0;
@@ -114,6 +114,22 @@ form input:focus {
   width: 100%;
   margin: 20px auto 0px;
   padding: 20px 0px;
+  display: flex;
+  flex-direction: row !important;
+  justify-content: space-around;
+  align-items: center;
+}
+.left-footer{
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 30px;
+}
+.right-footer{
+	display: flex;
+	flex-direction: column;
+	gap:10px;
 }
 /* BANNER: Welcome message; */
 .banner {
@@ -442,6 +458,8 @@ form input:focus {
 }
 .house-post-body-div {
 	font-size: 1.2em;
+	line-height: 30px !important;
+	letter-spacing: .08rem;
 }
 .house-post-body-div p {
 	margin:20px 0px;

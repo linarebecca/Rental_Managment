@@ -1,4 +1,5 @@
 <?php  include('../config.php'); ?>
+<?php  include('../check_session.php'); ?>
 <?php  include(ROOT_PATH . '/admin/includes/landlord_functions.php'); ?>
 <?php 
 	// Get all landlord users from DB

@@ -1,4 +1,5 @@
 <?php  include('../config.php'); ?>
+<?php  include('../check_session.php'); ?>
 <?php  include(ROOT_PATH . '/admin/includes/landlord_functions.php'); ?>
 <?php  include(ROOT_PATH . '/admin/includes/house_functions.php'); ?>
 <?php include(ROOT_PATH . '/admin/includes/head_section.php'); ?>

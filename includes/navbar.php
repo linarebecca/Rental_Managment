@@ -24,6 +24,7 @@
 	  <li style="background-color: #000;"><a href="tenant_invoice.php?user_id=<?php echo $_SESSION['user']['id'] ?>?>&house_slug=<?php echo $house_slug; ?>">Account</a></li>
 	  <li style="background-color: #000;"><a style="color: red;" href="logout.php">Logout</a></li>
 	  <?php }else{ ?>
+	
 	  <li><a href="<?php echo BASE_URL . 'login.php'; ?>">Login</a></li>
 	  <li><a href="<?php echo BASE_URL . 'register.php'; ?>">Register</a></li>
 	  <?php } ?>

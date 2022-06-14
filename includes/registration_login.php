@@ -73,62 +73,70 @@
 if (isset($_POST['newpassword'])) {
 	Forgot_password();
 }
-
+if (isset($_POST['setpassword'])) {
+	new_password();
+}
+//set new password 
+function new_password(){
+	global $conn, $errors;
+	if(isset($_POST) & !empty($_POST)){
+		// $pwd = bin2hex(openssl_random_pseudo_bytes(4));
+		$email = mysqli_real_escape_string($conn, $_GET['email']);
+		$password_1 = $_POST['newpwd'];
+		$password_2 = $_POST['confirmpwd'];
+		if (empty($password_1)) { 
+			array_push($errors, "password required");
+		}else if ($password_1 != $password_2) { 
+			array_push($errors, "Passwords do not match");
+		}
+		if (count($errors) == 0) {
+			$pwd = md5($password_1);
+		
+			$sql = "UPDATE `users` SET `password`='$pwd' WHERE email = '$email' ";
+			$res = mysqli_query($conn, $sql);
+			if($res) $_SESSION['message'] = "Password updated";
+			else echo mysqli_error($conn);
+		}
+		
+	}	
+}
 function Forgot_password(){
 	global $conn;
 	if(isset($_POST) & !empty($_POST)){
-		$email = mysqli_real_escape_string($conn, $_POST['email']);
-		$sql = "SELECT * FROM `login` WHERE email = '$email'";
-		$res = mysqli_query($connection, $sql);
+		$receiver = mysqli_real_escape_string($conn, $_POST['email']);
+		$sql = "SELECT * FROM `users` WHERE email = '$receiver'";
+		$res = mysqli_query($conn, $sql);
 		$count = mysqli_num_rows($res);
 		if($count == 1){
 		$r = mysqli_fetch_assoc($res);
-		$password = $r['password'];
-		$to = $r['email'];
-		$subject = "Your Recovered Password";
+		$uName=$r['username'];
+		$subject='Reset Password';
 		 
-		$message = "Please use this password to login " . $password;
-		$headers = "From : admin@phpflow.com";
-		if(mail($to, $subject, $message, $headers)){
-		echo "Your Password has been sent to your email id";
-		}else{
-		echo "Failed to Recover your password, try again";
-		}
+		$msg="
+        <span>Hi $uName, </span><br>
+        <br>
+        <span style='margin-top:10px !important;'>Forgot your Password?</span>  <br>
+        <span>We received a request to reset the password for your account. </span><br>
+        <br>
+        <span style='margin-top:10px !important;'>To reset your password, click on the button below: </span><br>
+        <br>
+        <a href='http://localhost/onlinerentals/reset_password.php?email=$receiver' style='background-color:#192f6a; color:white; outline:none; border:hidden;  padding: 8px 30px; margin-top: 5px !important; text-decoration:none; border-radius:5px'>Reset Password</a>
+             
+        ";
+		$headers = "From: info.onlinerentals@gmail.com";
+        $headers .= "MIME-Version: 1.0\r\n";
+$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+if (mail($receiver, $subject, $msg, $headers)) {
+	echo "Email successfully sent to $receiver...";
+} else {
+	echo "An error occured while sending you a mail";
+}
 		 
 		}else{
-		echo "Email does not exist in database";
+		echo "User not found";
 		}
 	}
-	// global $conn, $email, $errors;
-	// if(isset($_POST['email'])){
-	// $email = esc($_POST['email']);
-	// if (empty($email)) {
-	// 	array_push($errors, "email is required");
-	// }
-
-	// 	require_once('phpmail/PHPMailerAutoload.php');
-	// 	$mail = new PHPMailer();
-	// 	$mail->CharSet =  "utf-8";
-	// 	$mail->IsSMTP();
-	// 	// enable SMTP authentication
-	// 	$mail->SMTPAuth = true;                  
-	// 	// GMAIL username
-	// 	$mail->Username = "your_email_id@gmail.com";
-	// 	// GMAIL password
-	// 	$mail->Password = "your_gmail_password";
-	// 	$mail->SMTPSecure = "ssl";  
-	// 	// sets GMAIL as the SMTP server
-	// 	$mail->Host = "smtp.gmail.com";
-	// 	// set the SMTP port for the GMAIL server
-	// 	$mail->Port = "465";
-	// 	$mail->From='your_gmail_id@gmail.com';
-	// 	$mail->FromName='your_name';
-	// 	$mail->AddAddress('reciever_email_id', 'reciever_name');
-	// 	$mail->Subject  =  'Reset Password';
-	// 	$mail->IsHTML(true);
-	// 	$mail->Body    = 'Click On This Link to Reset Password '.$pass.'';
-	 
-	// }
+	
 	  
 }
 	// REGISTER USER BY ADMIN
@@ -245,7 +253,7 @@ function login(){
 				array_push($errors, "Wrong username/password combination or you have not registered");
 			}
 		}
-		// login agent
+		// login manager
 		if ($user_type == "manager") {
 			$query = "SELECT * FROM users WHERE username='$username' AND password='$password' LIMIT 1";
 			$results = mysqli_query($conn, $query);

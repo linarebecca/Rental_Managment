@@ -1,4 +1,5 @@
 <?php  include('../config.php'); ?>
+<?php  include('../check_session.php'); ?>
 <?php  include(ROOT_PATH . '/admin/includes/tenant_functions.php'); ?>
 <?php 
 	// Get all landlord users from DB
@@ -34,19 +35,19 @@
                         <th>Amount</th>
                         <th>mode of pay</th>
                         <th>pay code</th>
-                        <th>date rented</th>
+                        <th>date paid</th>
 					</thead>
 					<tbody>
 					<?php foreach ($tenants as $key => $tenant): ?>
 						<tr>
-							<td><?php echo $key + 1; ?></td>
+							<td><?php echo $key +1; ?></td>
 							<td><?php echo $tenant['username']; ?></td>
 							<td><?php echo $tenant['email']; ?></td>
 							<td><?php echo $tenant['title']; ?></td>
 							<td><?php echo $tenant['amount']; ?></td>
                             <td><?php echo $tenant['mode_of_pay']; ?></td>
                             <td><?php echo $tenant['pay_code']; ?></td>
-                            <td><?php echo $tenant['created_at']; ?></td>
+                            <td><?php echo $tenant['date_created']; ?></td>
 						</tr>
 					<?php endforeach ?>
 					</tbody>

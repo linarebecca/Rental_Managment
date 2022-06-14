@@ -1,4 +1,5 @@
 <?php  include('../config.php'); ?>
+<?php  include('../check_session.php'); ?>
 <?php  include(ROOT_PATH . '/admin/includes/landlord_functions.php'); ?>
 <?php include(ROOT_PATH . '/admin/includes/head_section.php'); ?>
 	<title>landlord | dashboard</title>
@@ -23,8 +24,8 @@
 						<?php
 		$db = mysqli_connect('localhost','root','','onlinerentalsdb');
             $query = "SELECT * FROM house_deposit_tenant";
-             $select_all_prisoners = mysqli_query($db,$query);
-             if ($result=$select_all_prisoners) {
+             $select_all_tenants = mysqli_query($db,$query);
+             if ($result=$select_all_tenants) {
                  $rowcount=mysqli_num_rows($result);
                 //  echo "The total number of rows are: ".$rowcount; 
             ?>
@@ -36,8 +37,8 @@
 						<?php
 		$db = mysqli_connect('localhost','root','','onlinerentalsdb');
             $query = "SELECT * FROM houses";
-             $select_all_prisoners = mysqli_query($db,$query);
-             if ($result=$select_all_prisoners) {
+             $select_all_tenants = mysqli_query($db,$query);
+             if ($result=$select_all_tenants) {
                  $rowcount=mysqli_num_rows($result);
                 //  echo "The total number of rows are: ".$rowcount; 
             ?>
@@ -49,8 +50,8 @@
 						<?php
 		$db = mysqli_connect('localhost','root','','onlinerentalsdb');
             $query = "SELECT * FROM monthly_payments";
-             $select_all_prisoners = mysqli_query($db,$query);
-             if ($result=$select_all_prisoners) {
+             $select_all_tenants = mysqli_query($db,$query);
+             if ($result=$select_all_tenants) {
                  $rowcount=mysqli_num_rows($result);
                 //  echo "The total number of rows are: ".$rowcount; 
             ?>
@@ -62,8 +63,8 @@
 						<?php
 		$db = mysqli_connect('localhost','root','','onlinerentalsdb');
             $query = "SELECT * FROM users WHERE role='tenant'";
-             $select_all_prisoners = mysqli_query($db,$query);
-             if ($result=$select_all_prisoners) {
+             $select_all_tenants = mysqli_query($db,$query);
+             if ($result=$select_all_tenants) {
                  $rowcount=mysqli_num_rows($result);
                 //  echo "The total number of rows are: ".$rowcount; 
             ?>

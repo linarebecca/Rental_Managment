@@ -80,7 +80,7 @@
 
 	<div style="width: 40%; margin: 20px auto;">
 		<form method="post" action="deposit_house.php" >
-			<h2>DEPOSIT PAYMENT & TENANTS CLARIFICATINS</h2>
+			<h2>DEPOSIT PAYMENT & TENANTS CLARIFICATIONS</h2>
 			<?php if (isset($_SESSION['user']['username'])) { ?>
 			<input type="text" name="username" value="Tenant Name:<?php echo $_SESSION['user']['username'] ?>" placeholder="Username" readonly>
 			<input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id'] ?>"  placeholder="id">

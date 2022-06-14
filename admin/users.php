@@ -1,8 +1,17 @@
 <?php  include('../config.php'); ?>
+<?php  include('../check_session.php'); ?>
 <?php  include(ROOT_PATH . '/admin/includes/landlord_functions.php'); ?>
 <?php 
 	// Get all landlord users from DB
 	$landlords = getlandlordUsers();
+	$users=array();
+	foreach ($landlords as $i => $landlord) {
+		if ($landlord['role']==='tenant') {
+			array_push($users, $landlord);
+		}
+
+	}
+
 	$roles = ['landlord', 'manager'];				
 ?>
 <?php include(ROOT_PATH . '/admin/includes/head_section.php'); ?>
@@ -54,7 +63,7 @@
 			<!-- Display notification message -->
 			<?php include(ROOT_PATH . '/admin/includes/messages.php') ?>
 
-			<?php if (empty($landlords)): ?>
+			<?php if (empty($users)): ?>
 				<h1>No landlords in the database.</h1>
 			<?php else: ?>
 				<table class="table">
@@ -65,7 +74,7 @@
 						<th colspan="2">Action</th>
 					</thead>
 					<tbody>
-					<?php foreach ($landlords as $key => $landlord): ?>
+					<?php foreach ($users as $key => $landlord): ?>
 						<tr>
 							<td><?php echo $key + 1; ?></td>
 							<td>

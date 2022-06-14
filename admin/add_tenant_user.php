@@ -1,4 +1,5 @@
 <?php  include('../config.php'); ?>
+<?php  include('../check_session.php'); ?>
 <?php  include(ROOT_PATH . '../includes/registration_login.php'); ?>
 <?php include(ROOT_PATH . '/admin/includes/head_section.php'); ?>
 	<title>landlord | Create New Tenant User</title>

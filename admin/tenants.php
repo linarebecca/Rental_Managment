@@ -1,4 +1,5 @@
 <?php  include('../config.php'); ?>
+<?php  include('../check_session.php'); ?>
 <?php  include(ROOT_PATH . '/admin/includes/tenant_functions.php'); ?>
 <?php 
 	// Get all landlord users from DB
@@ -56,7 +57,9 @@
 						<th colspan="3">Action</th>
 					</thead>
 					<tbody>
-					<?php foreach ($tenants as $key => $tenant): ?>
+					<?php foreach ($tenants as $key => $tenant): 
+					$email=$tenant['email'];
+						?>
 						<tr>
 							<td><?php echo $key + 1; ?></td>
 							<td><?php echo $tenant['username']; ?></td>
@@ -73,17 +76,26 @@
 								</a>
 							</td>
 							<td>
-								<a class="btn edit"
-									href="update_tenant_deposit.php?edit-tenant=<?php echo $tenant['id'] ?>">
+								<?php 
+									$sql="SELECT * FROM users WHERE email='$email'";
+									$res=mysqli_query($conn, $sql);
+									if ($res) {
+										while ($row=mysqli_fetch_assoc($res)) {
+											$userId=$row['id'];
+										}
+									}
+								?>
+								<!-- <a class="btn edit"
+									href="http://localhost/onlinerentals/rent_payment.php?user_id=<?php echo $userId; ?>&house_slug=<?php echo $tenant['house_slug']; ?>">
 									renew
-								</a>
+								</a> -->
 							</td>
-							<td>
+							<!-- <td>
 								<a class="btn delete" 
 								    href="tenants.php?delete-tenant=<?php echo $tenant['id'] ?>">
 									delete
 								</a>
-							</td>
+							</td> -->
 						</tr>
 					<?php endforeach ?>
 					</tbody>

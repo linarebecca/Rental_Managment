@@ -2,7 +2,7 @@
 <?php  include('includes/public_functions.php'); ?>
 <?php 
 	if (isset($_GET['user_id'])) {
-		$tenant_id = $_GET['user_id'];
+        $tenant_id = $_GET['user_id'];
 	}
     if (isset($_GET['house_slug'])) {
 		$house_slug = $_GET['house_slug'];
@@ -10,7 +10,7 @@
 	}
 ?>
 <?php include('includes/head_section.php'); ?>
-<title> <?php echo $tenant['user_id'] ?> | RMS</title>
+<title> <?php echo $tenant_id ?> | RMS</title>
 </head>
 <body>
 <div class="container">
@@ -49,7 +49,7 @@
                         $username = $row['username'];
 						// $house_title = $row['title'];
                         $amount = $row['amount'];
-                        $created_at = $row['created_at'];
+                        $created_at = $row['date_created'];
                         $mode_of_pay = $row['mode_of_pay'];
                         $pay_code = $row['pay_code'];
                        

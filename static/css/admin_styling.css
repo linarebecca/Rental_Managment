@@ -145,3 +145,17 @@ th { text-align: center;}
 }
 .error {color: #a94442; background: #f2dede; border: 1px solid #a94442; margin-bottom: 20px; }
 .validation_errors p {text-align: left;margin-left: 10px;}
+#page_links, #page_a_link{
+	background-color: #003366;
+	color: white;
+	text-decoration: none;
+	padding: 5px 8px;
+	margin: 0 5px;
+}
+#active_links{
+	background-color: #0033667d;
+	color: white;
+	text-decoration: none;
+	padding: 5px 8px;
+	margin: 0 5px;
+}
