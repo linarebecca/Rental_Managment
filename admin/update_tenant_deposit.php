@@ -4,6 +4,7 @@
 
   include('../config.php');
   $email=$_GET['edit-tenant'];
+  $errors=array();
   $sql="SELECT * FROM users WHERE email='$email'";
   $res=mysqli_query($conn, $sql);
   if ($res) {
@@ -77,6 +78,18 @@ if(isset($_POST['cash_btn'])) {
 	header("Location: monthly_payments_invoice.php?user_id=$user_id&house_slug=$house_det");
 
 }
+if (isset($_POST['update_user_det'])) {
+	global $conn, $errors;
+	$user_names=$_POST['userNames'];
+	if (empty($user_names)) {
+		array_push($errors, 'Username cannot be updated to empty');
+	}else{
+		$sql="UPDATE users SET fullname='$user_names' WHERE email='$email'";
+		$res=mysqli_query($conn, $sql);
+		$_SESSION['message']='User details updated';
+		header("Location: tenants.php");
+	}
+}
   
   ?>
 <?php  include(ROOT_PATH . '/admin/includes/landlord_functions.php'); ?>
@@ -94,27 +107,30 @@ if(isset($_POST['cash_btn'])) {
 		<!-- Middle form - to create and edit  -->
 		<div class="action create-post-div">
 			<h1 class="page-title">RENEW TENANT HOUSE </h1>
-			<form id="partnersearchform" method="post" enctype="multipart/form-data" action="<?php echo BASE_URL . 'admin/tenant_deposit_bookings.php'; ?>" >
+			
+			<form id="partnersearchform" method="post" enctype="multipart/form-data" action="" >
 				<!-- validation errors for the form -->
 				<?php include(ROOT_PATH . '/includes/errors.php') ?>
-				<label for="userNames" style="padding-bottom:10px !important">User Full Names : </label>
-				<input type="text" readonly value="<?php echo $userNames?>" name="userNames" >
 				<label for="user_id" style="padding-bottom:10px !important">User ID : </label>
 				<input type="text" readonly value="<?php echo $userId?>" name="user_id" >
 				<label for="house_slug" style="padding-bottom:10px !important">House N&deg; : </label>
 				<input type="text" readonly value="<?php echo $house_no?>" name="house_slug" >
+				<label for="userNames" style="padding-bottom:10px !important">User Full Names : </label>
+				<input type="text" value="<?php echo $userNames?>" name="userNames" >
+
+				<button type="submit" class="btn"  name="update_user_det">Submit</button>
 
 				
-			<input type="button" style="padding: 20px;
+			<!-- <input type="button" style="padding: 20px;
 			background-color: black;
-			color: whitesmoke; border-radius: 40px;" onclick="myFunctionMpesa();" value="mpesa" name="mode_of_pay" />
+			color: whitesmoke; border-radius: 40px;" onclick="myFunctionMpesa();" value="mpesa" name="mode_of_pay" /> -->
 			<!-- <input type="text" value="mpesa" name="mode_of_pay" /> -->
-			<input style="padding: 20px;
+			<!-- <input style="padding: 20px;
 			background-color: black;
 			color: whitesmoke; border-radius: 40px;"  type="button" onclick="myFunctionCard();" value="card" name="mode_of_pay" />
 			<input style="padding: 20px;
 			background-color: black;
-			color: whitesmoke; border-radius: 40px;"  type="button" onclick="myFunctionCash();" value="cash" name="mode_of_pay" />
+			color: whitesmoke; border-radius: 40px;"  type="button" onclick="myFunctionCash();" value="cash" name="mode_of_pay" /> -->
 			<!-- styling the buttons to default hidden -->
 			<style>
 			#mpesaCode{
@@ -140,7 +156,6 @@ if(isset($_POST['cash_btn'])) {
 			<input type="text" class="mpesaCode" id="mpesaCode" name="mpesa_code" value="" placeholder="ENTER MPESA CODE">
 			<input type="text" class="cardCode"id="cardCode" name="card_code" value="" placeholder="ENTER Card CODE">
 			<input type="text" class="cashOnly" id="cashOnly" name="cash_only" value="cash" placeholder="filled" readonly>
-			<!-- buttons -->
 			<button type="submit" class="btn" id="saveMpesaCode" name="mpesa_btn">Submit</button>
 			<button type="submit" class="btn" id="saveCardCode" name="card_btn">Submit</button>
 			<button type="submit" class="btn" id="saveCashOnly" name="cash_btn">Submit</button>

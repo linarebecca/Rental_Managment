@@ -173,7 +173,12 @@ function deletelandlord($landlord_id) {
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 function getTenantUsers(){
 	global $conn;
-	$sql = "SELECT * FROM house_deposit_tenant JOIN users ON house_deposit_tenant.user_id=users.id JOIN houses ON house_deposit_tenant.house_slug=houses.slug";
+	if (isset($_GET['search_value'])) {
+		$search_value = $_GET['search_value'];
+	}else {
+		$search_value = '';
+	}
+	$sql = "SELECT * FROM house_deposit_tenant JOIN users ON house_deposit_tenant.user_id=users.id JOIN houses ON house_deposit_tenant.house_slug=houses.slug WHERE email LIKE '%$search_value%'";
 	$result = mysqli_query($conn, $sql);
 	$tenants = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
@@ -199,7 +204,12 @@ function getTenantUsersFilterReport(){
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 function getTenantUsersPayments(){
 	global $conn;
-	$sql = "SELECT * FROM monthly_payments JOIN users ON monthly_payments.user_id=users.id JOIN houses ON monthly_payments.house_slug=houses.slug";
+	if (isset($_GET['search_value'])) {
+		$value = $_GET['search_value'];
+	}else {
+		$value = '';
+	}
+	$sql = "SELECT * FROM monthly_payments JOIN users ON monthly_payments.user_id=users.id JOIN houses ON monthly_payments.house_slug=houses.slug WHERE houses.title LIKE '%$value%'";
 	$result = mysqli_query($conn, $sql);
 	$tenants = mysqli_fetch_all($result, MYSQLI_ASSOC);
 

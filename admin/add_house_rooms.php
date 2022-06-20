@@ -3,7 +3,7 @@
 <?php  include(ROOT_PATH . '/admin/includes/landlord_functions.php'); ?>
 <?php  include(ROOT_PATH . '/admin/includes/house_functions.php'); ?>
 <?php include(ROOT_PATH . '/admin/includes/head_section.php'); ?>
-	<title>landlord | Add House Rooms</title>
+	<title>landlord | Add House Images</title>
 </head>
 <body>
 	<!-- landlord navbar -->
@@ -15,7 +15,7 @@
 
 		<!-- Middle form - to create and edit  -->
 		<div class="action create-post-div">
-			<h1 class="page-title">Add House Rooms</h1>
+			<h1 class="page-title">Add House Images</h1>
 			<form method="post" enctype="multipart/form-data" action="<?php echo BASE_URL . 'admin/add_house_rooms.php'; ?>" >
 				<!-- validation errors for the form -->
 				<?php include(ROOT_PATH . '/includes/errors.php') ?>
@@ -32,7 +32,7 @@
 				<button type="submit" class="btn" name="upload_room">Save</button>
                 <?php
                 // Create database connection
-                $db = mysqli_connect("localhost", "root", "", "onlinerentalsdb");
+                $db = mysqli_connect("localhost", "lina", "linaRebeca1", "onlinerentalsdb");
 
                 // Initialize message variable
                 $msg = "";

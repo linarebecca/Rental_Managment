@@ -45,7 +45,7 @@
                         <input onClick="window.print()" style="width: 20%; float:right; margin-top: 4px; height: 50px;" type="button" name="subcriber-name" value="PRINT" />
                     </form>
                     <?php 
-                    $connection = mysqli_connect('localhost', 'root', '', 'onlinerentalsdb');
+                    $connection = mysqli_connect('localhost', "lina", "linaRebeca1", 'onlinerentalsdb');
                     if (isset($_POST['filter_subcriber'])) {
                     $subcriber_email = $_POST['subcriber_email'];
                     header("Location: subcriber_filter_report.php?subcriber_report=$subcriber_email");

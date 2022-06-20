@@ -173,8 +173,13 @@ function deletelandlord($landlord_id) {
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 function getlandlordUsers(){
 	global $conn, $roles;
+	if (isset($_GET['user_search'])) {
+		$user = $_GET['user_search'];
+	}else{
+		$user='';
+	}
 	// select only tenants to be displayed to the manager
-	$sql = "SELECT * FROM users";
+	$sql = "SELECT * FROM users WHERE username LIKE '%$user%'";
 	$result = mysqli_query($conn, $sql);
 	$users = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
@@ -248,7 +253,12 @@ function makeSlug(String $string){
 // get all floors from DB
 function getAllFloors() {
 	global $conn;
-	$sql = "SELECT * FROM floors";
+	if (isset($_GET['user_search'])) {
+		$user = $_GET['user_search'];
+	}else{
+		$user='';
+	}
+	$sql = "SELECT * FROM floors WHERE name LIKE '%$user%'";
 	$result = mysqli_query($conn, $sql);
 	$floors = mysqli_fetch_all($result, MYSQLI_ASSOC);
 	return $floors;

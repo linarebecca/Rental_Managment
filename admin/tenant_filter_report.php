@@ -44,7 +44,7 @@
                         <input onClick="window.print()" style="width: 20%; float:right; margin-top: 4px; height: 50px;" type="button" name="tenant-name" value="PRINT" />
                     </form>
                     <?php 
-                    $connection = mysqli_connect('localhost', 'root', '', 'onlinerentalsdb');
+                    $connection = mysqli_connect('localhost', "lina", "linaRebeca1", 'onlinerentalsdb');
                     if (isset($_POST['filter_tenant'])) {
                     $tenant_email = $_POST['tenant_email'];
                     header("Location: tenant_filter_report.php?tenant_report=$tenant_email");

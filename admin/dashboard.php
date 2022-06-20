@@ -22,7 +22,7 @@
 					<tbody>
 						<td>
 						<?php
-		$db = mysqli_connect('localhost','root','','onlinerentalsdb');
+		$db = mysqli_connect('localhost',"lina", "linaRebeca1",'onlinerentalsdb');
             $query = "SELECT * FROM house_deposit_tenant";
              $select_all_tenants = mysqli_query($db,$query);
              if ($result=$select_all_tenants) {
@@ -35,7 +35,7 @@
        </td>
 						<td>
 						<?php
-		$db = mysqli_connect('localhost','root','','onlinerentalsdb');
+		$db = mysqli_connect('localhost',"lina", "linaRebeca1",'onlinerentalsdb');
             $query = "SELECT * FROM houses";
              $select_all_tenants = mysqli_query($db,$query);
              if ($result=$select_all_tenants) {
@@ -48,7 +48,7 @@
 						</td>
 						<td>
 						<?php
-		$db = mysqli_connect('localhost','root','','onlinerentalsdb');
+		$db = mysqli_connect('localhost',"lina", "linaRebeca1",'onlinerentalsdb');
             $query = "SELECT * FROM monthly_payments";
              $select_all_tenants = mysqli_query($db,$query);
              if ($result=$select_all_tenants) {
@@ -61,7 +61,7 @@
 						</td>
 						<td>
 						<?php
-		$db = mysqli_connect('localhost','root','','onlinerentalsdb');
+		$db = mysqli_connect('localhost',"lina", "linaRebeca1",'onlinerentalsdb');
             $query = "SELECT * FROM users WHERE role='tenant'";
              $select_all_tenants = mysqli_query($db,$query);
              if ($result=$select_all_tenants) {

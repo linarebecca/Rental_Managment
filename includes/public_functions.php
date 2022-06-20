@@ -72,7 +72,8 @@ function getHouse($id){
 	global $conn;
 	// Get single house slug
 	$house_slug = $_GET['house-slug'];
-	$sql = "SELECT * FROM houses WHERE slug='$house_slug' AND published=true";
+	//if bug add published=true
+	$sql = "SELECT * FROM houses WHERE slug='$house_slug'";
 	$result = mysqli_query($conn, $sql);
 
 	// fetch query results as associative array.
@@ -136,44 +137,12 @@ function getHouse_Slug($id){
 	// Get single house slug
 	$house_slug = $_GET['house_slug'];
 	$sql = "SELECT * FROM houses WHERE slug LIKE '%$house_slug%'";
-	// $sql = "SELECT * FROM house_deposit_tenant JOIN users ON house_deposit_tenant.user_id=users.id JOIN houses ON house_deposit_tenant.house_id=houses.id WHERE user_id='$house_id'";
+	// $sql = "SELECT * FROM house_deposit_tenant  users ON house_deposit_tenant.user_id=users.id JOIN houses ON house_deposit_tenant.house_id=houses.id WHERE user_id='$house_id'";
 	$result = mysqli_query($conn, $sql);
 
 	// fetch query results as associative array.
 	$house_name = mysqli_fetch_assoc($result);
 	return $house_name;
 }
-// // get all images
-// function getAllHouseImages($house_slug) {
-// 	global $conn;
-// 	$sql = "SELECT * FROM houses ps 
-// 			WHERE ps.slug IN 
-// 			(SELECT pt.house_slug FROM house_images pt 
-// 				WHERE pt.house_slug=$house_slug GROUP BY pt.room_id 
-// 				HAVING COUNT(1) = 1)";
-				
-// 	$result = mysqli_query($conn, $sql);
-// 	// fetch all posts as an associative array called $posts
-// 	$houses = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-// 	// $final_houses = array();
-// 	// foreach ($houses as $house) {
-// 	// 	$house['floor'] = getHouseDetails($house['id']); 
-// 	// 	array_push($final_houses, $house);
-// 	// }
-// 	return $houses;
-// }
-
-// function getHouseDetails($house_id){
-// 	global $conn;
-// 	$sql = "SELECT * FROM floors WHERE id=
-// 			(SELECT floor_id FROM house_floors WHERE house_id=$house_id) LIMIT 1";
-// 	$result = mysqli_query($conn, $sql);
-// 	$floor = mysqli_fetch_assoc($result);
-// 	return $floor;
-// }
-
-
-
 
 ?>

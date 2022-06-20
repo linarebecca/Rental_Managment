@@ -12,6 +12,15 @@
 	<div class="container content">
 		<!-- Left side menu -->
 		<?php include(ROOT_PATH . '/admin/includes/menu.php') ?>
+		
+					<?php 
+                    if (isset($_POST['filter_user'])) {
+                    	$user = $_POST['user'];
+                    	header("Location: floors.php?user_search=$user");
+                    }
+
+
+                    ?>
 
 		<!-- Middle form - to create and edit -->
 		<div class="action">
@@ -41,6 +50,11 @@
 			<?php if (empty($floors)): ?>
 				<h1>No floors in the database.</h1>
 			<?php else: ?>
+				<form action="" method="post" style='padding-bottom:0; margin-bottom:0; width:100%; padding-top:20px; padding-left:20px'>
+                        <input style="width: 350px; float: left;" type="text" name="user" placeholder="search by name" />
+                        <input style="margin-left: 30px; padding: 15px;" type="submit" name="filter_user" value="filter" />
+						<input onClick="window.print()" style="margin-left: 30px; padding: 15px;" type="button" name="" value="PRINT" />
+                    </form>
 				<table class="table">
 					<thead>
 						<th>N</th>

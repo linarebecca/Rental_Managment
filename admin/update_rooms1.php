@@ -3,7 +3,7 @@
 <?php  include(ROOT_PATH . '/admin/includes/landlord_functions.php'); ?>
 <?php  include(ROOT_PATH . '/admin/includes/house_functions.php'); ?>
 <?php include(ROOT_PATH . '/admin/includes/head_section.php'); ?>
-	<title>landlord | Add House Rooms</title>
+	<title>landlord | Add House Images</title>
 </head>
 <body>
 	<!-- landlord navbar -->
@@ -52,7 +52,7 @@
                 $image = $_FILES['image']['name'];
                 // Get text
                 $body = mysqli_real_escape_string($db, $_POST['body']);
-                $house_id = mysqli_real_escape_string($db, $_POST['house_id']);
+                $house_id = real_escape_string($db, $_POST['house_id']);
 
 
                 // image file directory

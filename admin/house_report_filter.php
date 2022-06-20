@@ -32,7 +32,7 @@
                         <input onClick="window.print()" style="width: 20%; float:right; margin-top: 4px; height: 50px;" type="button" value="PRINT" />
                     </form>
                     <?php 
-                    $connection = mysqli_connect('localhost', 'root', '', 'onlinerentalsdb');
+                    $connection = mysqli_connect('localhost', "lina", "linaRebeca1", 'onlinerentalsdb');
                     if (isset($_POST['filter_floors'])) {
                     $house_floor = $_POST['floor_name'];
                     header("Location: house_report_filter.php?floor_name=$house_floor");

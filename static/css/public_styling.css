@@ -197,8 +197,6 @@ form input:focus {
 	letter-spacing: 1.3px;
 }
 .banner .login_div form button {
-	display: block;
-	background: #192f6a;
 	margin-left: 20%;
 	width: 330px;
 }
@@ -526,4 +524,7 @@ form input:focus {
 .logged_in_info {
 	text-align: right; 
 	padding: 10px;
+}
+.d-none{
+	display:none !important;
 }

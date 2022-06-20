@@ -101,9 +101,14 @@ function new_password(){
 	}	
 }
 function Forgot_password(){
-	global $conn;
+	global $conn, $errors;
 	if(isset($_POST) & !empty($_POST)){
 		$receiver = mysqli_real_escape_string($conn, $_POST['email']);
+		if (empty($receiver)) {  array_push($errors, "email is required"); }
+		else if(!filter_var($receiver, FILTER_VALIDATE_EMAIL)){array_push($errors, "email is not valid"); }
+		else{
+			
+		
 		$sql = "SELECT * FROM `users` WHERE email = '$receiver'";
 		$res = mysqli_query($conn, $sql);
 		$count = mysqli_num_rows($res);
@@ -135,7 +140,7 @@ if (mail($receiver, $subject, $msg, $headers)) {
 		}else{
 		echo "User not found";
 		}
-	}
+	}}
 	
 	  
 }

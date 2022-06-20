@@ -18,7 +18,7 @@ if (isset($_GET['house_slug'])) {
 		$amount = $_POST['amount'];
 		$mode_of_pay = 'MPESA';
 		$mpesa_code = $_POST['mpesa_code'];
-		$query = "INSERT INTO monthly_payments(user_id,house_slug,amount,mode_of_pay,pay_code,created_at) ";
+		$query = "INSERT INTO monthly_payments(user_id,house_slug,amount,mode_of_pay,pay_code,date_created) ";
 		$query .= "VALUES('{$user_id}','{$house_slug}','{$amount}','{$mode_of_pay}','{$mpesa_code}',now()) ";
 		$create_query = mysqli_query($conn,$query);
 		$house_det = isset($_SESSION['deposited']);
@@ -38,7 +38,7 @@ if (isset($_GET['house_slug'])) {
 		$amount = $_POST['amount'];
 		$mode_of_pay = 'CARD';
 		$card_code = $_POST['card_code'];
-		$query = "INSERT INTO monthly_payments(user_id,house_slug,amount,mode_of_pay,pay_code,created_at) ";
+		$query = "INSERT INTO monthly_payments(user_id,house_slug,amount,mode_of_pay,pay_code,date_created) ";
 		$query .= "VALUES('{$user_id}','{$house_slug}','{$amount}','{$mode_of_pay}','{$card_code}',now()) ";
 		$create_query = mysqli_query($conn,$query);
 		$house_det = isset($_SESSION['deposited']);
@@ -59,7 +59,7 @@ if (isset($_GET['house_slug'])) {
 		$amount = $_POST['amount'];
 		$mode_of_pay = 'CASH';
 		$cash_code = $_POST['cash_only'];
-		$query = "INSERT INTO monthly_payments(user_id,house_slug,amount,mode_of_pay,pay_code,created_at) ";
+		$query = "INSERT INTO monthly_payments(user_id,house_slug,amount,mode_of_pay,pay_code,date_created) ";
 		$query .= "VALUES('{$user_id}','{$house_slug}','{$amount}','{$mode_of_pay}','{$cash_code}',now()) ";
 		$create_query = mysqli_query($conn,$query);
 		$house_det = isset($_SESSION['deposited']);

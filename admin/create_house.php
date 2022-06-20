@@ -1,6 +1,5 @@
 <?php  include('../config.php'); ?>
 <?php  include('../check_session.php'); ?>
-<?php  include('../check_session.php'); ?>
 <?php  include(ROOT_PATH . '/admin/includes/landlord_functions.php'); ?>
 <?php  include(ROOT_PATH . '/admin/includes/house_functions.php'); ?>
 <?php include(ROOT_PATH . '/admin/includes/head_section.php'); ?>
@@ -24,18 +23,24 @@
 				<?php include(ROOT_PATH . '/includes/errors.php') ?>
 
 				<!-- if editing house, the id is required to identify that house -->
-				<?php if ($isEditingHouse === true): ?>
-					<input type="hidden" name="house_id" value="<?php echo $house_id; ?>">
+				
+				<?php if($isEditingHouse===false): ?>
+					<input type="text" name="title" value="<?php echo $title; ?>" placeholder="ADD HOUSE">
+				<?php endif ?>
+				<?php if($isEditingHouse===true): ?>
+					<label for="house_id">House ID : </label>
+					<input type="text" name="house_id" value="<?php echo $_GET['edit-house']; ?>" readonly placeholder="ADD HOUSE">
 				<?php endif ?>
 
-				<input type="text" name="title" value="<?php echo $title; ?>" placeholder="ADD HOUSE LABEL">
 				<input style="width: 100%; height: 40px; background: transparent;" type="number" name="price" value="<?php echo $price; ?>" placeholder="ADD HOUSE PRICE">
-				<label style="float: left; margin: 5px auto 5px;">House image</label>
-				<?php if ($isEditingHouse === true): ?>
-					<img width="100" src="../static/images/<?php echo $featured_image; ?>" alt="room-image" style="float: left;">
+				<?php if($isEditingHouse===false): ?>
+					<label style="float: left; margin: 5px auto 5px;">House image</label>
 				<?php endif ?>
-				<input type="file" name="featured_image" >
+				<?php if($isEditingHouse===false): ?>
+					<input type="file" name="featured_image" >
+				<?php endif ?>
 				<textarea name="body" id="body" cols="30" rows="10"><?php echo $body; ?></textarea>
+				<?php if($isEditingHouse===false): ?>
 				<select name="floor_id">
 					<option value="" selected disabled>Choose floor</option>
 					<?php foreach ($floors as $floor): ?>
@@ -44,6 +49,13 @@
 						</option>
 					<?php endforeach ?>
 				</select>
+				<select name="room_no">
+					<option value="" selected disabled>select room</option>
+					
+						<option value="1">1 </option>
+						<option value="2">2 </option>
+					</select>
+				<?php endif ?>
 				
 				<!-- Only landlord users can view publish input field -->
 				<?php

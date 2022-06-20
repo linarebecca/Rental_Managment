@@ -3,6 +3,7 @@
 use LDAP\Result;
 
   include('../config.php'); ?>
+<?php  include('../check_session.php'); ?>
 <?php  include(ROOT_PATH . '/admin/includes/landlord_functions.php'); ?>
 <?php  include(ROOT_PATH . '/admin/includes/house_functions.php'); ?>
 <?php include(ROOT_PATH . '/admin/includes/head_section.php'); ?>
@@ -41,7 +42,8 @@ use LDAP\Result;
 							<?php echo $house['title']; ?>
 						</option>
 					<?php endforeach ?>
-				</select>		
+				</select>	
+				<input type="text" name="rent_amount" placeholder="Deposit Amount" >	
 			<input type="button" style="padding: 20px;
 			background-color: black;
 			color: whitesmoke; border-radius: 40px;" onclick="myFunctionMpesa();" value="mpesa" name="mode_of_pay" />

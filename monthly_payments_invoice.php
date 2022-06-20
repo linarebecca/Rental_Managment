@@ -1,4 +1,5 @@
 <?php  include('config.php'); ?>
+<?php  include('check_session.php'); ?>
 <?php  include('includes/public_functions.php'); ?>
 <?php 
 	if (isset($_GET['user_id'])) {

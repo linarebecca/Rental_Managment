@@ -26,6 +26,21 @@
 			<?php if (empty($tenants)): ?>
 				<h1>No tenants found in the database.</h1>
 			<?php else: ?>
+				<form action="" method="post">
+                        <input style="width: 40%; float:left; margin-left: 20px;" type="text" name="search_value" placeholder="search by house" />
+                        <input style="width: 20%; float:left; margin-top: 4px; height: 50px; margin-left: 20px;" type="submit" name="search" value="filter" />
+                        <input onClick="window.print()" style="width: 20%; float:right; margin-top: 4px; height: 50px;" type="button" value="PRINT" />
+                    </form>
+                    <?php 
+                    $connection = mysqli_connect('localhost', 'lina', 'linaRebeca1', 'onlinerentalsdb');
+                    if (isset($_POST['search'])) {
+                    $search_value = $_POST['search_value'];
+                    header("Location: payments.php?search_value=$search_value");
+                    }
+
+
+                    ?>
+
 				<table class="table">
 					<thead>
 						<th>N</th>

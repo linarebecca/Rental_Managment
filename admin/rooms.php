@@ -20,7 +20,7 @@
 				<table class="table"  >
 				<form action="" method="post">
                         <input style="width: 40%; float:left; margin-left: 20px;" type="text" name="house_no" placeholder="search by house number" />
-                        <input style="width: 20%; float:left; margin-top: 4px; height: 50px; margin-left: 20px;" type="submit" name="filter_house" value="filter" />
+                        <input Style="width: 20%; float:left; margin-top: 4px; height: 50px; margin-left: 20px;" type="submit" name="filter_house" value="filter" />
                     </form>
 					<?php 
                     if (isset($_POST['filter_house'])) {

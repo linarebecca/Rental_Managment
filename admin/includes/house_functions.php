@@ -277,6 +277,10 @@ function createHouse($request_values)
 		if (isset($request_values['floor_id'])) {
 			$floor_id = esc($request_values['floor_id']);
 		}
+		if (isset($request_values['room_no'])) {
+			$room = esc($request_values['room_no']);
+		}
+		
 		if (isset($request_values['publish'])) {
 			$published = esc($request_values['publish']);
 		}
@@ -284,9 +288,32 @@ function createHouse($request_values)
 		$house_slug = makeSlug($title);
 		// validate form
 		if (empty($title)) { array_push($errors, "House title is required"); }
+		else if(strlen($title)>3){array_push($errors, "House title is long");}
+		else {
+			$isThereNumber=false;
+			$isThereLetter=false;
+			for ($i = 0; $i < strlen($title); $i++) {
+
+				if ( ctype_digit($title[$i]) ) {
+					$isThereNumber = true;
+				}
+				if (ctype_alpha($title[$i])) {
+					$isThereLetter=true;
+				}
+			}
+			if (!$isThereNumber) {
+				array_push($errors, "House title should contain a number");
+			}
+			if (!$isThereLetter) {
+				array_push($errors, 'House title shoud contain a letter');
+			}
+		}
         if (empty($price)) { array_push($errors, "House price is required"); }
 		if (empty($body)) { array_push($errors, "House body is required"); }
 		if (empty($floor_id)) { array_push($errors, "House Floor is required"); }
+		if (empty($room)) { array_push($errors, "Rooms number is required"); }
+		if ($price<1) { array_push($errors, "House price cannot be less than 1"); }
+		else if (!is_numeric($price)) { array_push($errors, "House price is invalid"); }
 		// Get image name
 	  	$featured_image = $_FILES['featured_image']['name'];
 	  	if (empty($featured_image)) { array_push($errors, "Featured image is required"); }
@@ -304,7 +331,8 @@ function createHouse($request_values)
 		}
 		// create house if there are no errors in the form
 		if (count($errors) == 0) {
-			$query = "INSERT INTO houses (user_id, title, price, slug, image, body, published, created_at, updated_at) VALUES(1, '$title', '$price', '$house_slug', '$featured_image', '$body', $published, now(), now())";
+			$creator=$_SESSION['user']['id'];
+			$query = "INSERT INTO houses (user_id, title, price, slug, image, body, published,rooms, created_at, updated_at) VALUES('$creator', '$title', '$price', '$house_slug', '$featured_image', '$body', $published,$room, now(), now())";
 			if(mysqli_query($conn, $query)){ // if house created successfully
 				$inserted_house_id = mysqli_insert_id($conn);
 				// create relationship between house and floor
@@ -341,12 +369,12 @@ function createHouse($request_values)
 	{
 		global $conn, $errors, $house_id, $title, $price, $featured_image, $floor_id, $body, $published;
 
-		$title = esc($request_values['title']);
-        $price = esc($request_values['price']);
-		$body = esc($request_values['body']);
-		$house_id = esc($request_values['house_id']);
-		$room_image = $_FILES['featured_image']['name'];
-        $room_image_temp = $_FILES['featured_image']['tmp_name'];
+		// $title = esc($request_values['title']);
+        $price = esc($_POST['price']);
+		$body = esc($_POST['body']);
+		$house_id=esc($_POST['house_id']);
+		// $room_image = $_FILES['featured_image']['name'];
+        // $room_image_temp = $_FILES['featured_image']['tmp_name'];
     
 		if (isset($request_values['floor_id'])) {
 			$floor_id = esc($request_values['floor_id']);
@@ -354,7 +382,7 @@ function createHouse($request_values)
 		// create slug: if title is "House one", return "house-one" as slug
 		$house_slug = makeSlug($title);
 
-		if (empty($title)) { array_push($errors, "House title is required"); }
+		// if (empty($title)) { array_push($errors, "House title is required"); }
         if (empty($price)) { array_push($errors, "House price is required"); }
 		if (empty($body)) { array_push($errors, "House body is required"); }
 		// if new featured image has been provided
@@ -368,38 +396,32 @@ function createHouse($request_values)
 		//   	}
 		// }
 
-		move_uploaded_file($room_image_temp, "../static/images/$room_image");
+		// move_uploaded_file($room_image_temp, "../static/images/$room_image");
 		// KEEPING THE IMAGE FROM DISAPEARING
-		if(empty($room_image)) {
+		// if(empty($room_image)) {
 		
-		$query = "SELECT * FROM houses WHERE id = $house_id ";
-		$select_image = mysqli_query($conn,$query);
+		// $query = "SELECT * FROM houses WHERE id = $house_id ";
+		// $select_image = mysqli_query($conn,$query);
 			
-		while($row = mysqli_fetch_array($select_image)) {
+		// while($row = mysqli_fetch_array($select_image)) {
 			
-		$room_image = $row['image'];
+		// $room_image = $row['image'];
 		
-		}
-	}
+		// }
+	//}
 
 		// register floor if there are no errors in the form
 		if (count($errors) == 0) {
-			$query = "UPDATE houses SET title='$title', price='$price', slug='$house_slug', views=0, image='$room_image', body='$body', published=$published, updated_at=now() WHERE id=$house_id";
+			
+			$query = "UPDATE houses SET price='$price', views=0, body='$body', published=$published, updated_at=now() WHERE id=$house_id";
 			// attach floor to house on house_floors table
-			if(mysqli_query($conn, $query)){ // if house created successfully
-				if (isset($floor_id)) {
-					$inserted_house_id = mysqli_insert_id($conn);
-					// create relationship between house and floor
-					$sql = "INSERT INTO house_floors (house_id, floor_id) VALUES($inserted_house_id, $floor_id)";
-					mysqli_query($conn, $sql);
-					$_SESSION['message'] = "House Updated successfully";
-					header('location: houses.php');
-					exit(0);
-				}
+			if(mysqli_query($conn, $query)){ // if house updated successfully	
+				$_SESSION['message'] = "House updated successfully";
+				header('location: houses.php');
+				exit(0);
+			}else{
+				$_SESSION['message'] = mysqli_error($conn);
 			}
-			$_SESSION['message'] = "House updated successfully";
-			header('location: houses.php');
-			exit(0);
 		}
 	}
 	// delete house
@@ -453,10 +475,10 @@ if(isset($_POST['mpesa_btn'])) {
 	// $house_slug = $_POST['house_slug'];
 	$house_slug = mysqli_real_escape_string($conn,$_POST['house_slug']);
     $user_id = mysqli_real_escape_string($conn, $_POST['user_id']);
+    $deposit_amount = mysqli_real_escape_string($conn, $_POST['rent_amount']);
 
 	// $deposit_amount = mysqli_query($conn, "SELECT price FROM houses WHERE slug = $house_price");
 	// print_r($deposit_amount);
-	$deposit_amount = 0;
 	if (!empty($house_slug) && isset($_GET[$house_slug])) {
 		$query = "SELECT * FROM houses WHERE slug = $house_slug ";
 		$select_price = mysqli_query($db,$query);
@@ -486,7 +508,7 @@ if(isset($_POST['card_btn'])) {
 	global $conn;
 	$user_id = $_POST['user_id'];
 	$house_slug = $_POST['house_slug'];
-	$deposit_amount = 0;
+	$deposit_amount = mysqli_real_escape_string($conn, $_POST['rent_amount']);
 	$mode_of_pay = 'CARD';
 	$card_code = $_POST['card_code'];
 	$query = "INSERT INTO house_deposit_tenant(user_id,house_slug,deposit_amount,mode_of_pay,pay_code,created_at) ";
@@ -507,7 +529,7 @@ if(isset($_POST['cash_btn'])) {
 	global $conn;
 	$user_id = $_POST['user_id'];
 	$house_slug = $_POST['house_slug'];
-	$deposit_amount = 0;
+	$deposit_amount = mysqli_real_escape_string($conn, $_POST['rent_amount']);
 	$mode_of_pay = 'CASH';
 	$cash_code = $_POST['cash_only'];
 	$query = "INSERT INTO house_deposit_tenant(user_id,house_slug,deposit_amount,mode_of_pay,pay_code,created_at) ";

@@ -32,10 +32,10 @@
                         <input onClick="window.print()" style="width: 20%; float:right; margin-top: 4px; height: 50px;" type="button" value="PRINT" />
                     </form>
                     <?php 
-                    $connection = mysqli_connect('localhost', 'root', '', 'onlinerentalsdb');
+                    $connection = mysqli_connect('localhost', "lina", "linaRebeca1", 'onlinerentalsdb');
                     if (isset($_POST['filter_houses'])) {
                     $house_label = $_POST['house_label'];
-                    header("Location: vacant_report_filter.php?house_label=$house_label");
+                    header("Location: occupied_house_report_filter.php?house_label=$house_label");
                     }
 
 

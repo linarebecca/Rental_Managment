@@ -15,7 +15,8 @@
 		<form method="post" action="forgot_password.php" class="form-reset">
 			<h2>Forgot  Password </h2>
             <div class="form-group">
-                <input type="email" name="email" class="control" placeholder="email" required="true">
+			<?php include(ROOT_PATH . '/includes/errors.php') ?>
+                <input type="text" name="email" class="control" placeholder="email">
             </div>        
 			<button type="submit" class="btn" name="newpassword" onsubmit="return false">Forgot Password</button>
             
